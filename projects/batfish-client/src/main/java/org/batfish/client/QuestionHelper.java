@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.function.Supplier;
@@ -58,15 +59,15 @@ public class QuestionHelper {
   public static final String MACRO_PREFIX = "#";
 
   public static String getParametersString(Map<String, String> parameters) throws Exception {
-    String retString = "{\n";
+    StringBuilder retString = new StringBuilder("{\n");
 
-    for (String paramKey : parameters.keySet()) {
-      retString += String.format("\"%s\" : %s,\n", paramKey, parameters.get(paramKey));
+    for (Entry<String, String> entry : parameters.entrySet()) {
+      retString.append(String.format("\"%s\" : %s,\n", entry.getKey(), entry.getValue()));
     }
 
-    retString += "}\n";
+    retString.append("}\n");
 
-    return retString;
+    return retString.toString();
   }
 
   public static Question getQuestion(

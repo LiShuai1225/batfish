@@ -905,8 +905,8 @@ public class Client extends AbstractClient implements IClient {
   private boolean execute(WorkItem wItem, FileWriter outWriter) {
     _logger.info("work-id is " + wItem.getId() + "\n");
     wItem.addRequestParam(BfConsts.ARG_LOG_LEVEL, _settings.getBatfishLogLevel());
-    for (String option : _additionalBatfishOptions.keySet()) {
-      wItem.addRequestParam(option, _additionalBatfishOptions.get(option));
+    for (Entry<String, String> entry : _additionalBatfishOptions.entrySet()) {
+      wItem.addRequestParam(entry.getKey(), entry.getValue());
     }
     boolean queueWorkResult = _workHelper.queueWork(wItem);
     _logger.info("Queuing result: " + queueWorkResult + "\n");
@@ -1517,8 +1517,8 @@ public class Client extends AbstractClient implements IClient {
 
     try {
       JSONObject jObject = new JSONObject();
-      for (String qName : questionMap.keySet()) {
-        jObject.put(qName, new JSONObject(questionMap.get(qName)));
+      for (Entry<String, String> entry : questionMap.entrySet()) {
+        jObject.put(entry.getKey(), new JSONObject(entry.getValue()));
       }
       analysisJsonString = jObject.toString(1);
     } catch (JSONException e) {
@@ -1748,9 +1748,8 @@ public class Client extends AbstractClient implements IClient {
 
     Map<String, String> testrigs = _workHelper.listTestrigs(_currContainerName);
     if (testrigs != null) {
-      for (String testrigName : testrigs.keySet()) {
-        logOutput(
-            outWriter, String.format("Testrig: %s\n%s\n", testrigName, testrigs.get(testrigName)));
+      for (Entry<String, String> entry : testrigs.entrySet()) {
+        logOutput(outWriter, String.format("Testrig: %s\n%s\n", entry.getKey(), entry.getValue()));
       }
     }
     return true;
@@ -2426,8 +2425,8 @@ public class Client extends AbstractClient implements IClient {
       return false;
     }
     _logger.outputf("There are %d additional batfish options\n", _additionalBatfishOptions.size());
-    for (String option : _additionalBatfishOptions.keySet()) {
-      _logger.outputf("    %s : %s \n", option, _additionalBatfishOptions.get(option));
+    for (Entry<String, String> entry : _additionalBatfishOptions.entrySet()) {
+      _logger.outputf("    %s : %s \n", entry.getKey(), entry.getValue());
     }
     return true;
   }
