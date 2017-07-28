@@ -59,9 +59,10 @@ public class UniqueIpAssignmentsQuestionPlugin extends QuestionPlugin {
     private Object ipsToString(
         String indent, String header, SortedMap<Ip, SortedSet<NodeInterfacePair>> ips) {
       StringBuilder sb = new StringBuilder(indent + header + "\n");
-      for (Ip ip : ips.keySet()) {
+      for (Entry<Ip, SortedSet<NodeInterfacePair>> entry : ips.entrySet()) {
+        Ip ip = entry.getKey();
         sb.append(indent + indent + ip.toString() + "\n");
-        for (NodeInterfacePair nip : ips.get(ip)) {
+        for (NodeInterfacePair nip : entry.getValue()) {
           sb.append(indent + indent + indent + nip.toString() + "\n");
         }
       }

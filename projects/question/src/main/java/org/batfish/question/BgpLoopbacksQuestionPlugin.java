@@ -61,8 +61,9 @@ public class BgpLoopbacksQuestionPlugin extends QuestionPlugin {
     private Object interfacesToString(
         String indent, String header, SortedMap<String, SortedSet<String>> interfaces) {
       StringBuilder sb = new StringBuilder(indent + header + "\n");
-      for (String node : interfaces.keySet()) {
-        for (String iface : interfaces.get(node)) {
+      for (Entry<String, SortedSet<String>> entry : interfaces.entrySet()) {
+        String node = entry.getKey();
+        for (String iface : entry.getValue()) {
           sb.append(indent + indent + node + " : " + iface + "\n");
         }
       }

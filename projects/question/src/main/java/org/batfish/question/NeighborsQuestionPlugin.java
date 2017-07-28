@@ -724,7 +724,7 @@ public class NeighborsQuestionPlugin extends QuestionPlugin {
       try {
         String retString =
             String.format(
-                "neighbors %s%s=%s | %s=%s | %s=%s | %s=%b",
+                "neighbors %s%s=%s | %s=%s | %s=%s | %s=%s",
                 prettyPrintBase(),
                 NODE1_REGEX_VAR,
                 _node1Regex,

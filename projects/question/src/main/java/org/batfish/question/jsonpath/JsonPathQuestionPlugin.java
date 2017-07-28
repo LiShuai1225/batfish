@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
@@ -42,12 +43,12 @@ public class JsonPathQuestionPlugin extends QuestionPlugin {
 
     static String prettyPrint(SortedMap<Integer, JsonPathResult> results) {
       StringBuilder sb = new StringBuilder("Results for nodespath\n");
-      for (Integer index : results.keySet()) {
-        JsonPathResult result = results.get(index);
+      for (Entry<Integer, JsonPathResult> entry : results.entrySet()) {
+        JsonPathResult result = entry.getValue();
         sb.append(
             String.format(
                 "  [%d]: %d results for %s\n",
-                index, result.getNumResults(), result.getPath().toString()));
+                entry.getKey(), result.getNumResults(), result.getPath().toString()));
         for (JsonPathResultEntry resultEntry : result.getResult().values()) {
           ConcreteJsonPath path = resultEntry.getConcretePath();
           JsonNode suffix = resultEntry.getSuffix();

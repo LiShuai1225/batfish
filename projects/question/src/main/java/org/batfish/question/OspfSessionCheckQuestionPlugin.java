@@ -223,8 +223,6 @@ public class OspfSessionCheckQuestionPlugin extends QuestionPlugin {
       }
 
       OspfSessionCheckAnswerElement answerElement = new OspfSessionCheckAnswerElement();
-      Set<Ip> allInterfaceIps = new HashSet<>();
-      Set<Ip> loopbackIps = new HashSet<>();
       Map<Ip, Set<String>> ipOwners = new HashMap<>();
       for (Configuration c : configurations.values()) {
         for (Interface i : c.getInterfaces().values()) {
@@ -232,10 +230,6 @@ public class OspfSessionCheckQuestionPlugin extends QuestionPlugin {
             if (i.getPrefix() != null) {
               for (Prefix prefix : i.getAllPrefixes()) {
                 Ip address = prefix.getAddress();
-                if (i.isLoopback(c.getConfigurationFormat())) {
-                  loopbackIps.add(address);
-                }
-                allInterfaceIps.add(address);
                 Set<String> currentIpOwners = ipOwners.get(address);
                 if (currentIpOwners == null) {
                   currentIpOwners = new HashSet<>();

@@ -1,6 +1,7 @@
 package org.batfish.question;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import org.batfish.common.Answerer;
@@ -29,9 +30,10 @@ public class ParseTreesQuestionPlugin extends QuestionPlugin {
     public String prettyPrint() {
       StringBuilder sb = new StringBuilder();
       sb.append("Parse trees of vendor configurations\n");
-      for (String name : _parseTrees.keySet()) {
+      for (Entry<String, ParseTreeSentences> entry : _parseTrees.entrySet()) {
+        String name = entry.getKey();
         sb.append("\n  " + name + " [Parse tree]\n");
-        for (String sentence : _parseTrees.get(name).getSentences()) {
+        for (String sentence : entry.getValue().getSentences()) {
           sb.append("    " + sentence + "\n");
         }
       }

@@ -3,6 +3,7 @@ package org.batfish.question;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -76,9 +77,11 @@ public class CompareSameNameQuestionPlugin extends QuestionPlugin {
     @Override
     public String prettyPrint() {
       StringBuilder sb = new StringBuilder("Results for comparing same name structure\n");
-      for (String name : _equivalenceSets.keySet()) {
-        if (_equivalenceSets.get(name).size() > 0) {
-          sb.append(equivalenceSetToString("  ", name, _equivalenceSets.get(name)));
+      for (Entry<String, NamedStructureEquivalenceSets<?>> entry : _equivalenceSets.entrySet()) {
+        NamedStructureEquivalenceSets<?> equivs = entry.getValue();
+        if (equivs.size() > 0) {
+          String name = entry.getKey();
+          sb.append(equivalenceSetToString("  ", name, equivs));
         }
       }
       return sb.toString();
